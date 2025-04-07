@@ -7,6 +7,7 @@ from vggt.utils.load_fn import load_and_preprocess_images
 from vggt.utils.pose_enc import pose_encoding_to_extri_intri
 from vggt.utils.geometry import unproject_depth_map_to_point_map
 
+
 # run VGGT to get the 3D model from the images
 def create_model():
     image_dir_path = '/playpen-nas-ssd4/nofrahm/ModelGen/stable-virtual-camera/work_dirs/demo/img2trajvid_s-prob/vggt_prepped/flower/first-pass/samples-rgb'
@@ -39,6 +40,7 @@ def create_model():
         pose_enc = model.camera_head(aggregated_tokens_list)[-1]
         # Extrinsic and intrinsic matrices, following OpenCV convention (camera from world)
         extrinsic, intrinsic = pose_encoding_to_extri_intri(pose_enc, images.shape[-2:])
+        breakpoint()
 
         # Predict Depth Maps
         depth_map, depth_conf = model.depth_head(aggregated_tokens_list, images, ps_idx)
